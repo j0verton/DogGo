@@ -7,7 +7,7 @@ using Microsoft.Data.SqlClient;
 
 namespace DogGo.Repositories
 {
-    interface IOwnerRepository
+    public interface IOwnerRepository
     {
         List<Owner> GetAllOwners();
         Owner GetOwnerById(int id);

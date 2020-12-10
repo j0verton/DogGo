@@ -1,4 +1,5 @@
 ﻿using DogGo.Models;
+using DogGo.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,7 +14,7 @@ namespace DogGo.Controllers
 
         private readonly IOwnerRepository _ownerRepo;
             
-            public IOwnerController(IOwnerRepository ownerRepository)
+            public OwnerController(IOwnerRepository ownerRepository)
         {
             _ownerRepo = ownerRepository;
         }
@@ -21,8 +22,8 @@ namespace DogGo.Controllers
         public ActionResult Index()
         {
 
-            List<Walker> walkers = _ownerRepo.GetAllWalkers();
-            return View(walkers);
+            List<Owner> owners = _ownerRepo.GetAllOwners();
+            return View(owners);
 
         }
    
