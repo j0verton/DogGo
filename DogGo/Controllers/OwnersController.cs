@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace DogGo.Controllers
 {
-    public class OwnerController : Controller
+    public class OwnersController : Controller
     {
 
         private readonly IOwnerRepository _ownerRepo;
             
-            public OwnerController(IOwnerRepository ownerRepository)
+            public OwnersController(IOwnerRepository ownerRepository)
         {
             _ownerRepo = ownerRepository;
         }
@@ -33,7 +33,14 @@ namespace DogGo.Controllers
 // GET: OwnerController/Details/5
 public ActionResult Details(int id)
         {
-            return View();
+            Owner owner = _ownerRepo.GetOwnerById(id);
+
+            if (owner == null)
+            {
+                return NotFound();
+            }
+
+            return View(owner);
         }
 
         // GET: OwnerController/Create
@@ -45,10 +52,11 @@ public ActionResult Details(int id)
         // POST: OwnerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Owner owner)
         {
             try
             {
+                _ownerRepo.AddOwner(owner);
                 return RedirectToAction(nameof(Index));
             }
             catch
