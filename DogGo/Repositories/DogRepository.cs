@@ -1,5 +1,7 @@
-﻿using DogGo.Models;
+﻿using Doggo.Repositories.Utils;
+using DogGo.Models;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +9,14 @@ using System.Threading.Tasks;
 
 namespace DogGo.Repositories
 {
-    public class DogRepository
+    public class DogRepository : IDogRepository
     {
+        private readonly IConfiguration _config;
+
+        public DogRepository(IConfiguration config)
+        {
+            _config = config;
+        }
         public SqlConnection Connection
         {
             get
@@ -36,8 +44,8 @@ namespace DogGo.Repositories
                             Name = reader.GetString(reader.GetOrdinal("Name")),
                             OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
                             Breed = reader.GetString(reader.GetOrdinal("Breed")),
-                            Notes = reader.GetString(reader.GetOrdinal("Notes")),
-                            ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
+                            Notes = ReaderUtils.GetNullableString(reader, "Notes"),
+                            ImageUrl = ReaderUtils.GetNullableString(reader, "ImageUrl"),
                         };
                         dogs.Add(dog);
                     }
@@ -129,7 +137,7 @@ namespace DogGo.Repositories
             }
         }
 
-        public UpdateDog(Dog dog)
+        public void UpdateDog(Dog dog)
         { 
         
         }
