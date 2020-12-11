@@ -61,7 +61,7 @@ public ActionResult Details(int id)
             }
             catch
             {
-                return View();
+                return View(owner);
             }
         }
 
