@@ -8,10 +8,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace DogGo.Repositories
 {
-    public class OwnerRepository
+    public class OwnerRepository : IOwnerRepository
     {
         private readonly IConfiguration _config;
 
+        public OwnerRepository(IConfiguration config)
+        {
+            _config = config;
+        }
         public SqlConnection Connection
         {
             get
