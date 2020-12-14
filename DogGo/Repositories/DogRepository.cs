@@ -197,9 +197,12 @@ namespace DogGo.Repositories
                     cmd.Parameters.AddWithValue("@name", dog.Name);
                     cmd.Parameters.AddWithValue("@ownerid", dog.OwnerId);
                     cmd.Parameters.AddWithValue("@breed", dog.Breed);
+
+                    cmd.Parameters.AddWithValue("@notes", ReaderUtils.GetNullableParam(dog.Notes));
+                    cmd.Parameters.AddWithValue("@imageurl", ReaderUtils.GetNullableParam(dog.ImageUrl));
                     if (!string.IsNullOrWhiteSpace(dog.Notes))
                     {
-                        cmd.Parameters.AddWithValue("@notes", dog.Notes);
+                        cmd.Parameters.AddWithValue("@notes", GetNullableParamdog.Notes);
                     }
                     else 
                     {
