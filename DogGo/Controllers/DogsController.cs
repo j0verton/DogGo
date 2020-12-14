@@ -54,7 +54,7 @@ namespace DogGo.Controllers
                 _dogRepo.AddDog(dog);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception ex)
             {
                 return View(dog);
             }
@@ -80,11 +80,11 @@ namespace DogGo.Controllers
             try
             {
                 _dogRepo.UpdateDog(dog);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                return View(dog);
             }
         }
 

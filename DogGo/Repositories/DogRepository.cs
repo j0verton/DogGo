@@ -137,12 +137,12 @@ namespace DogGo.Repositories
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
-                using (SqlCommand cmd = Connection.CreateCommand())
+                using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
                     INSERT INTO Dog ([Name], [OwnerId], [Breed], [Notes], [ImageUrl])
                     OUTPUT INSERTED.ID
-                    VALUE (@name, @breed, @ImageUrl, @notes, @ownerId);
+                    VALUES (@name, @ownerId, @breed,  @notes, @ImageUrl);
                     ";
                     cmd.Parameters.AddWithValue("@name", dog.Name);
                     cmd.Parameters.AddWithValue("@breed", dog.Breed);
@@ -193,11 +193,27 @@ namespace DogGo.Repositories
                                 [Notes] = @notes, 
                                 [ImageUrl] = @imageurl
                             WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", dog.Id);
                     cmd.Parameters.AddWithValue("@name", dog.Name);
                     cmd.Parameters.AddWithValue("@ownerid", dog.OwnerId);
                     cmd.Parameters.AddWithValue("@breed", dog.Breed);
-                    cmd.Parameters.AddWithValue("@notes", dog.Notes);
-                    cmd.Parameters.AddWithValue("@imageurl", dog.ImageUrl);
+                    if (!string.IsNullOrWhiteSpace(dog.Notes))
+                    {
+                        cmd.Parameters.AddWithValue("@notes", dog.Notes);
+                    }
+                    else 
+                    {
+                        cmd.Parameters.AddWithValue("@notes", DBNull.Value);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(dog.ImageUrl))
+                    {
+                        cmd.Parameters.AddWithValue("@imageurl", dog.ImageUrl);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@imageurl", DBNull.Value);
+                    }
 
                     cmd.ExecuteNonQuery();
                 }
