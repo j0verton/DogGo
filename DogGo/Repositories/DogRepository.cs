@@ -200,23 +200,6 @@ namespace DogGo.Repositories
 
                     cmd.Parameters.AddWithValue("@notes", ReaderUtils.GetNullableParam(dog.Notes));
                     cmd.Parameters.AddWithValue("@imageurl", ReaderUtils.GetNullableParam(dog.ImageUrl));
-                    if (!string.IsNullOrWhiteSpace(dog.Notes))
-                    {
-                        cmd.Parameters.AddWithValue("@notes", GetNullableParamdog.Notes);
-                    }
-                    else 
-                    {
-                        cmd.Parameters.AddWithValue("@notes", DBNull.Value);
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(dog.ImageUrl))
-                    {
-                        cmd.Parameters.AddWithValue("@imageurl", dog.ImageUrl);
-                    }
-                    else
-                    {
-                        cmd.Parameters.AddWithValue("@imageurl", DBNull.Value);
-                    }
 
                     cmd.ExecuteNonQuery();
                 }
