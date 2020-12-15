@@ -1,7 +1,10 @@
-﻿namespace DogGo.Repositories
+﻿using DogGo.Models;
+using System.Collections.Generic;
+
+namespace DogGo.Repositories
 {
     public interface IWalkRepository
     {
-        System.Collections.Generic.List<Walk> GetWalksByWalkerId(int id);
+        List<Walk> GetWalksByWalkerId(int id);
     }
 }

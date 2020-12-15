@@ -35,19 +35,23 @@ namespace DogGo.Controllers
         // GET: WalkersController/Details/5
         public ActionResult Details(int id)
         {
+            Walker walker = _walkerRepo.GetWalkerById(id);
+            List<Walk> walks = _walkRepo.GetWalksByWalkerId(walker.Id);
+            Neighborhood neighborhood = _neighborhoodRepo.GetNeighborhoodById(walker.Id);
+
             WalkerProfileViewModel vm = new WalkerProfileViewModel()
             {
-            Walker walker = _walkerRepo.GetWalkerById(id);
-            List<Walk> walks = _walkRepo.GetWalksByWalkerId(id)
-                Neighborhood neighborhood = _
+                Walker = walker,
+                Walks = walks,
+                Neighborhood = neighborhood
             };
 
-            if (vm.walker == null)
+            if (vm.Walker == null)
             {
                 return NotFound();
             }
 
-            return View(vw.walker);
+            return View(vm.Walker);
         }
 
         // GET: WalkersController/Create
