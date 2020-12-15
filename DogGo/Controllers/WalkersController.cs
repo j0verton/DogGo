@@ -51,7 +51,7 @@ namespace DogGo.Controllers
                 return NotFound();
             }
 
-            return View(vm.Walker);
+            return View(vm);
         }
 
         // GET: WalkersController/Create

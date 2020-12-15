@@ -52,7 +52,7 @@ namespace DogGo.Repositories
                             Date = reader.GetDateTime(reader.GetOrdinal("Date")),
                             WalkerId = reader.GetInt32(reader.GetOrdinal("WalkerId")),
                             DogId = reader.GetInt32(reader.GetOrdinal("DogId")),
-                            Duration = reader.GetInt32(reader.GetOrdinal("Name"))
+                            Duration = reader.GetInt32(reader.GetOrdinal("Duration"))
                         };
                         walks.Add(walk);
 
