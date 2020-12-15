@@ -16,14 +16,14 @@ namespace DogGo.Controllers
         private IOwnerRepository _ownerRepo;
         private IDogRepository _dogRepo;
         private IWalkerRepository _walkerRepo;
-        private readonly NeighborhoodRepository _neighborhoodRepo;
+        private INeighborhoodRepository _neighborhoodRepo;
 
-        public OwnersController(IConfiguration config)
+        public OwnersController(IOwnerRepository ownerRepository, IDogRepository dogRepo, IWalkerRepository walkerRepo, INeighborhoodRepository neighborhoodRepository)
         {
-            _ownerRepo = new OwnerRepository(config);
-            _dogRepo = new DogRepository(config);
-            _walkerRepo = new WalkerRepository(config);
-            _neighborhoodRepo = new NeighborhoodRepository(config);
+            _ownerRepo = ownerRepository;
+            _dogRepo = dogRepo;
+            _walkerRepo = walkerRepo;
+            _neighborhoodRepo = neighborhoodRepository;
 
         }
         // GET: OwnerController
