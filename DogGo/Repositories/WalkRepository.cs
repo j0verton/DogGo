@@ -36,7 +36,7 @@ namespace DogGo.Repositories
                 {
                     cmd.CommandText = @"
                         SELECT Id, Duration, Date, WalkerId, DogId
-                        FROM Walk
+                        FROM Walks
                         WHERE Id = @id
                     ";
                     cmd.Parameters.AddWithValue("@id", id);
