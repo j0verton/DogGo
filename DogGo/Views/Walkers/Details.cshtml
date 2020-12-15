@@ -1,16 +1,16 @@
-﻿@model DogGo.Models.Walker
+﻿@model DogGo.Models.ViewModels.WalkerProfileViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>@Model.Name</h1>
+<h1>@Model.walker.Name</h1>
 <h4>Walker Profile</h4>
-<img src="@Model.ImageUrl" class="rounded img-thumbnail" alt="Doggo" />
+<img src="@Model.walker.ImageUrl" class="rounded img-thumbnail" alt="Doggo" />
 
 
-@Html.DisplayNameFor(model => model.Name)
-@Html.DisplayFor(model => model.Neighborhood.Name)
+@Html.DisplayNameFor(model => Model.walker.Name)
+@Html.DisplayFor(model => Model.neighborhood.Name)
 
 
 <hr />
