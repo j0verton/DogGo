@@ -18,6 +18,9 @@ namespace DogGo.Controllers
             _dogRepo = dogRepository;
         }
         // GET: OwnerController
+        // /dog/index
+        // uncomment this v when ready , can slso move it above class to lock down all routes
+        //[Authorize] 
         public ActionResult Index()
         {
 

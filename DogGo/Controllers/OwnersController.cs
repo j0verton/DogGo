@@ -71,16 +71,16 @@ namespace DogGo.Controllers
         // POST: OwnerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Owner owner)
+        public ActionResult Create(OwnerFormViewModel vm)
         {
             try
             {
-                _ownerRepo.AddOwner(owner);
-                return RedirectToAction(nameof(Index));
+                _ownerRepo.AddOwner(vm.Owner);
+                return RedirectToAction("Details", new { id = vm.Owner.Id });
             }
             catch
             {
-                return View(owner);
+                return View(vm);
             }
         }
 
@@ -144,5 +144,43 @@ namespace DogGo.Controllers
                 return View(owner);
             }
         }
+
+        //public ActionResult Login()
+        //{
+        //    return View();
+        //}
+
+
+        //[HttpPost]
+        //public ActionResult Login(LoginViewModel viewModel)
+        //{ 
+        
+        //}
+
+        //public async Task<ActionResult> Login(LoginViewModel viewModel)
+        //{
+        //    Owner owner = _ownerRepo.GetOwnerByEmail(viewModel.Email);
+
+        //    if (owner == null)
+        //    {
+        //        return Unauthorized();
+        //    }
+
+        //    List<Claim> claims = new List<Claim>
+        //    {
+        //        new Claim(ClaimTypes.NameIdentifier, owner.Id.ToString()),
+        //        new Claim(ClaimTypes.Email, owner.Email),
+        //        new Claim(ClaimTypes.Role, "DogOwner"),
+        //    };
+
+        //    ClaimsIdentity claimsIdentity = new ClaimsIdentity(
+        //        claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+        //    await HttpContext.SignInAsync(
+        //        CookieAuthenticationDefaults.AuthenticationScheme,
+        //        new ClaimsPrincipal(claimsIdentity));
+
+        //    return RedirectToAction("Index", "Dogs");
+        //}
     }
 }
