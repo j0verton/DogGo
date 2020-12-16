@@ -1,12 +1,15 @@
 ﻿using DogGo.Models;
 using DogGo.Models.ViewModels;
 using DogGo.Repositories;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace DogGo.Controllers
@@ -145,42 +148,37 @@ namespace DogGo.Controllers
             }
         }
 
-        //public ActionResult Login()
-        //{
-        //    return View();
-        //}
+        public ActionResult Login()
+        {
+            return View();
+        }
 
 
-        //[HttpPost]
-        //public ActionResult Login(LoginViewModel viewModel)
-        //{ 
-        
-        //}
+        [HttpPost]
+        public async Task<ActionResult> Login(LoginViewModel viewModel)
+        {
+            Owner owner = _ownerRepo.GetOwnerByEmail(viewModel.Email);
 
-        //public async Task<ActionResult> Login(LoginViewModel viewModel)
-        //{
-        //    Owner owner = _ownerRepo.GetOwnerByEmail(viewModel.Email);
+            if (owner == null)
+            {
+                return Unauthorized();
+            }
 
-        //    if (owner == null)
-        //    {
-        //        return Unauthorized();
-        //    }
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, owner.Id.ToString()),
+                new Claim(ClaimTypes.Email, owner.Email),
+                new Claim(ClaimTypes.Role, "DogOwner"),
+            };
 
-        //    List<Claim> claims = new List<Claim>
-        //    {
-        //        new Claim(ClaimTypes.NameIdentifier, owner.Id.ToString()),
-        //        new Claim(ClaimTypes.Email, owner.Email),
-        //        new Claim(ClaimTypes.Role, "DogOwner"),
-        //    };
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-        //    ClaimsIdentity claimsIdentity = new ClaimsIdentity(
-        //        claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity));
 
-        //    await HttpContext.SignInAsync(
-        //        CookieAuthenticationDefaults.AuthenticationScheme,
-        //        new ClaimsPrincipal(claimsIdentity));
-
-        //    return RedirectToAction("Index", "Dogs");
-        //}
+            return RedirectToAction("Index", "Dogs");
+        }
     }
 }
