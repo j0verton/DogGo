@@ -94,7 +94,7 @@ namespace DogGo.Repositories
 
         }
 
-        public List<Dog> GetDogsByEmployedWaklerId(int walkerId)
+        public List<Dog> GetDogsByEmployedWalkerId(int walkerId)
         {
             using (SqlConnection conn = Connection)
             {

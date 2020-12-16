@@ -33,12 +33,17 @@
                 { 
         <tr>
             <td>@walk.Date</td>
-            <td>@Dog dog = Model.clientDogs.FirstOrDefault(dog => dog.Id = walk.DogId)
-            @dog.Name
-            </td>
-            <td>@Model.clientOwners.FirstOrDefault(client => client.Id = dog.OwnerId)</td>
+            <td>@Model.clientDogs.FirstOrDefault(dog => dog.Id == walk.DogId).Name</td>
+            <td>@Model.clientOwners.FirstOrDefault(client => client.Id == Model.clientDogs.FirstOrDefault(dog => dog.Id == walk.DogId).OwnerId).Name</td>
 
-            <td>@ReaderUtils.getDogFromListById(Model.clientDogs, walk.DogId)</td>
+
+
+
+
+
+
+            <td>@ViewUtils.getDogFromListById(Model.clientDogs, walk.DogId).Name</td>
+            <td>@ViewUtils.getOwnerFromListByDog(Model.clientOwners, ViewUtils.getDogFromListById(Model.clientDogs, walk.DogId)).Name
 
         </tr>
         }

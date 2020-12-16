@@ -37,16 +37,5 @@ namespace Doggo.Repositories.Utils
         {
             return value ?? DBNull.Value;
         }
-
-        public static Dog getDogFromListById(List<Dog> dogs, int dogId)
-        {
-            Dog foundDog = dogs.FirstOrDefault(dog => dog.Id == dogId);
-            return foundDog;
-        }
-
-        public static Owner getOwnerFromListByDog(List<Owner> owners, Dog dog)
-        {
-            return owners.FirstOrDefault(owner => owner.Id == dog.OwnerId);
-        }
     }
 }
