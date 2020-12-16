@@ -33,18 +33,23 @@
                 { 
         <tr>
             <td>@walk.Date</td>
+
+            @*how do i get this owner and dog data that i need to render on this page?
+                I added a list of Owners and a list of Dogs to the view model*@
+            @*here are few ways that I can think of (other than just adding owner and dog objects to the walks model)*@
+            @*option 1 - using linq methods to sort my list data here on the view*@
             <td>@Model.clientDogs.FirstOrDefault(dog => dog.Id == walk.DogId).Name</td>
             <td>@Model.clientOwners.FirstOrDefault(client => client.Id == Model.clientDogs.FirstOrDefault(dog => dog.Id == walk.DogId).OwnerId).Name</td>
 
 
-
-
-
-
+            @*option 2 - can i make custom methods that i can just use here in the view? *@
 
             <td>@ViewUtils.getDogFromListById(Model.clientDogs, walk.DogId).Name</td>
-            <td>@ViewUtils.getOwnerFromListByDog(Model.clientOwners, ViewUtils.getDogFromListById(Model.clientDogs, walk.DogId)).Name
+            <td>@ViewUtils.getOwnerFromListByDog(Model.clientOwners, ViewUtils.getDogFromListById(Model.clientDogs, walk.DogId)).Name</td>
 
+            @*option 3 - do i add a utils class into the view model? *@
+            <td>@Model.viewUtils.getDogFromListById(Model.clientDogs, walk.DogId).Name</td>
+            <td>@Model.viewUtils.getOwnerFromListByDog(Model.clientOwners, ViewUtils.getDogFromListById(Model.clientDogs, walk.DogId)).Name</td>
         </tr>
         }
     </tbody>
