@@ -3,15 +3,15 @@
 @{
     ViewData["Title"] = "Details";
 }
+<header class="row">
+        <img src="@Model.Walker.ImageUrl" class="col-sm-3 border-dark" alt="Doggo" />
+    <div>
+        <h1>@Model.Walker.Name</h1>
+        <h4>@Model.Neighborhood.Name</h4>
+    </div>
+</header>
 
-<h1>@Model.Walker.Name</h1>
-<h4>Walker Profile</h4>
-<img src="@Model.Walker.ImageUrl" class="rounded img-thumbnail" alt="Doggo" />
-
-
-@Html.DisplayFor(model => Model.Walker.Name)
-@Html.DisplayFor(model => Model.Neighborhood.Name)
-
+<body>
 
 <table class="table">
     <thead>
@@ -29,9 +29,23 @@
         </tr>
     </thead>
     <tbody>
-        </tbody>
-        </table>
+        @foreach(Walk walk in Model.Walks)
+                { 
+        <tr>
+            <td>@walk.Date</td>
+            <td>@Dog dog = Model.clientDogs.FirstOrDefault(dog => dog.Id = walk.DogId)
+            @dog.Name
+            </td>
+            <td>@Model.clientOwners.FirstOrDefault(client => client.Id = dog.OwnerId)</td>
 
+            <td>@ReaderUtils.getDogFromListById(Model.clientDogs, walk.DogId)</td>
+
+        </tr>
+        }
+    </tbody>
+    </table>
+
+</body>
         <hr />
         <div>
         </div>

@@ -109,6 +109,51 @@ namespace DogGo.Repositories
                 }
             }
         }
+
+        public List<Owner> GetOwnersByEmployedWalkerId(int walkerId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT * 
+                        FROM Owner o
+                        JOIN Dog d ON d.OwnerId = o.Id
+                        JOIN Walks w ON w.DogId = d.Id
+                        WHERE w.WalkerId = @walkerId
+                    ";
+
+                    cmd.Parameters.AddWithValue("@walkerId", walkerId);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    List<Owner> owners = new List<Owner>();
+                    while (reader.Read())
+                    {
+                        Owner owner = new Owner
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            Address = reader.GetString(reader.GetOrdinal("Address")),
+                            Email = reader.GetString(reader.GetOrdinal("Email")),
+                            Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                            NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
+                            Neighborhood = new Neighborhood()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
+                                Name = reader.GetString(reader.GetOrdinal("Neighborhood")),
+                            }
+                        };
+                        owners.Add(owner);
+                    }
+                    reader.Close();
+                    return owners;
+                
+                }
+            }
+        }
         public Owner GetOwnerByEmail(string email)
         {
             using (SqlConnection conn = Connection)

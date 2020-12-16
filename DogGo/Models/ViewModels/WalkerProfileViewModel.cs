@@ -12,5 +12,9 @@ namespace DogGo.Models.ViewModels
 
         public Neighborhood Neighborhood { get; set; }
 
+        public List<Owner> clientOwners { get; set; }
+
+        public List<Dog> clientDogs { get; set; }
+
     }
 }

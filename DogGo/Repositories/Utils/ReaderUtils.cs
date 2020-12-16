@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using DogGo.Models;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,17 @@ namespace Doggo.Repositories.Utils
         public static object GetNullableParam(object value)
         {
             return value ?? DBNull.Value;
+        }
+
+        public static Dog getDogFromListById(List<Dog> dogs, int dogId)
+        {
+            Dog foundDog = dogs.FirstOrDefault(dog => dog.Id == dogId);
+            return foundDog;
+        }
+
+        public static Owner getOwnerFromListByDog(List<Owner> owners, Dog dog)
+        {
+            return owners.FirstOrDefault(owner => owner.Id == dog.OwnerId);
         }
     }
 }
