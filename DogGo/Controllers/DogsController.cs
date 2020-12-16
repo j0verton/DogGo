@@ -1,10 +1,12 @@
 ﻿using DogGo.Models;
 using DogGo.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace DogGo.Controllers
@@ -20,13 +22,14 @@ namespace DogGo.Controllers
         // GET: OwnerController
         // /dog/index
         // uncomment this v when ready , can slso move it above class to lock down all routes
-        //[Authorize] 
+        [Authorize]
         public ActionResult Index()
         {
+            int ownerId = GetCurrentUserId();
 
-            List<Dog> dogs = _dogRepo.GetAllDogs();
+            List<Dog> dogs = _dogRepo.GetDogsByOwnerId(ownerId);
+
             return View(dogs);
-
         }
 
 
@@ -42,6 +45,7 @@ namespace DogGo.Controllers
         }
 
         // GET: DogController1/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -54,8 +58,11 @@ namespace DogGo.Controllers
         {
             try
             {
+                dog.OwnerId = GetCurrentUserId();
+
                 _dogRepo.AddDog(dog);
-                return RedirectToAction(nameof(Index));
+
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
@@ -112,6 +119,12 @@ namespace DogGo.Controllers
             {
                 return View(dog);
             }
+        }
+
+        private int GetCurrentUserId()
+        {
+            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return int.Parse(id);
         }
     }
 }
