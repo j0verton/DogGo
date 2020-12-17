@@ -84,6 +84,12 @@ namespace DogGo.Controllers
             {
                 return NotFound();
             }
+            int currentUserId = GetCurrentUserId();
+
+            if (currentUserId != dog.OwnerId)
+            {
+                return NotFound();
+            }
             return View(dog);
         }
 
@@ -106,6 +112,12 @@ namespace DogGo.Controllers
         // GET: DogController1/Delete/5
         public ActionResult Delete(int id)
         {
+            int currentUserId = GetCurrentUserId();
+
+            if (currentUserId != dog.OwnerId)
+            {
+                return NotFound();
+            }
             Dog dog = _dogRepo.GetDogById(id);
             return View(dog);
         }
