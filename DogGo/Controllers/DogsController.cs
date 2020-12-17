@@ -112,13 +112,13 @@ namespace DogGo.Controllers
         // GET: DogController1/Delete/5
         public ActionResult Delete(int id)
         {
+            Dog dog = _dogRepo.GetDogById(id);
             int currentUserId = GetCurrentUserId();
 
             if (currentUserId != dog.OwnerId)
             {
                 return NotFound();
             }
-            Dog dog = _dogRepo.GetDogById(id);
             return View(dog);
         }
 

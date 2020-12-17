@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace DogGo.Controllers
@@ -30,9 +31,12 @@ namespace DogGo.Controllers
         // GET: WalkersController
         public ActionResult Index()
         {
-            List<Walker> walkers = _walkerRepo.GetAllWalkers();
+            int currentUserId = GetCurrentUserId();
+            Owner currentOwner = _ownerRepo.GetOwnerById(currentUserId);
 
-            return View(walkers);
+            List<Walker> walkers = _walkerRepo.GetAllWalkers();
+            
+            return View(walkers.Where(walker => walker.NeighborhoodId == currentOwner.NeighborhoodId));
         }
 
         // GET: WalkersController/Details/5
@@ -130,6 +134,11 @@ namespace DogGo.Controllers
             {
                 return View();
             }
+        }
+        private int GetCurrentUserId()
+        {
+            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return int.Parse(id);
         }
     }
 }
