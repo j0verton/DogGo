@@ -20,7 +20,7 @@ namespace DogGo.Models.ViewModels
 
         //public ViewUtils viewUtils { get; set; }
 
-        [DisplayFormat(DataFormatString = "{0:hh\\:mm\\:ss}")]
+        [DisplayFormat(DataFormatString = "{0:hh\\hr:mm\\min}")]
         public TimeSpan TotalWalkTime {
             get
             {

@@ -63,9 +63,14 @@ namespace DogGo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT [Id], [Name], [OwnerId], [Breed], [Notes], [ImageUrl]
-                        FROM Dog
-                        WHERE [OwnerId] = @id
+                        SELECT d.[Id], d.[Name], d.[OwnerId], d.[Breed], 
+                                d.[Notes], d.[ImageUrl], o.Id AS oID , o.[Name] AS oName, o.Email, 
+                                o.Address, o.Phone, o.NeighborhoodId, 
+                                n.Id AS nId, n.Name AS nName
+                        FROM Dog d
+                        JOIN Owner o ON o.Id = d.[OwnerId]
+                        JOIN Neighborhood n ON n.id = o.NeighborhoodId
+                        WHERE d.[OwnerId] = @id
                     ";
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -78,6 +83,20 @@ namespace DogGo.Repositories
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Name = reader.GetString(reader.GetOrdinal("Name")),
                             OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
+                            Owner = new Owner
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("oId")),
+                                Name = reader.GetString(reader.GetOrdinal("oName")),
+                                Address = reader.GetString(reader.GetOrdinal("Address")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                                NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
+                                Neighborhood = new Neighborhood
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("nId")),
+                                    Name = reader.GetString(reader.GetOrdinal("nName")),
+                                }
+                            },
                             Breed = reader.GetString(reader.GetOrdinal("Breed")),
                             Notes = ReaderUtils.GetNullableString(reader, "Notes"),
                             ImageUrl = ReaderUtils.GetNullableString(reader, "ImageUrl"),
@@ -102,9 +121,14 @@ namespace DogGo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT [Id], [Name], [OwnerId], [Breed], [Notes], [ImageUrl]
-                        FROM Dog
-                        WHERE [OwnerId] = @id
+                        SELECT d.[Id], d.[Name], d.[OwnerId], d.[Breed], 
+                                d.[Notes], d.[ImageUrl], o.Id AS oID , o.[Name] AS oName, o.Email, 
+                                o.Address, o.Phone, o.NeighborhoodId, 
+                                n.Id AS nId, n.Name AS nName
+                        FROM Dog d
+                        JOIN Owner o ON o.Id = d.[OwnerId]
+                        JOIN Neighborhood n ON n.id = o.NeighborhoodId
+                        WHERE d.[OwnerId] = @id
                     ";
                     cmd.Parameters.AddWithValue("@id", walkerId);
 
@@ -117,6 +141,20 @@ namespace DogGo.Repositories
                             Id = reader.GetInt32(reader.GetOrdinal("Id")),
                             Name = reader.GetString(reader.GetOrdinal("Name")),
                             OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
+                            Owner = new Owner
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("oId")),
+                                Name = reader.GetString(reader.GetOrdinal("oName")),
+                                Address = reader.GetString(reader.GetOrdinal("Address")),
+                                Email = reader.GetString(reader.GetOrdinal("Email")),
+                                Phone = reader.GetString(reader.GetOrdinal("Phone")),
+                                NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
+                                Neighborhood = new Neighborhood
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("nId")),
+                                    Name = reader.GetString(reader.GetOrdinal("nName")),
+                                }
+                            },
                             Breed = reader.GetString(reader.GetOrdinal("Breed")),
                             Notes = ReaderUtils.GetNullableString(reader, "Notes"),
                             ImageUrl = ReaderUtils.GetNullableString(reader, "ImageUrl"),

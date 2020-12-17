@@ -1,11 +1,11 @@
 ﻿@model DogGo.Models.ViewModels.WalkerProfileViewModel
-@using DogGo.Repositories.Utils
+@using DogGo.Models.ViewModels
 
 @{
     ViewData["Title"] = "Details";
 }
 <header class="row">
-        <img src="@Model.Walker.ImageUrl" class="col-sm-3 border-dark" alt="Doggo" />
+    <img src="@Model.Walker.ImageUrl" class="col-sm-3 border-dark" alt="Doggo" />
     <div>
         <h1>@Model.Walker.Name</h1>
         <h4>@Model.Neighborhood.Name</h4>
@@ -14,55 +14,56 @@
 
 <body>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Date
-            </th>
-            <th>
-                Client (dog / owner)
-            </th>
-            <th>
-                Duration
-            </th>
-        
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(Walk walk in Model.Walks)
-                { 
-        <tr>
-            <td>@walk.Date</td>
-            <td>@walk.Dog.Name / @walk.Dog.Owner.Name</td>
-            <td>@walk.Duration</td>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Client (dog / owner)
+                </th>
+                <th>
+                    Duration
+                </th>
 
-            @*how do i get this owner and dog data that i need to render on this page?
-                I added a list of Owners and a list of Dogs to the view model
-            here are few ways that I can think of (other than just adding owner and dog objects to the walks model)
-            option 1 - using linq methods to sort my list data here on the view
-            <td>@Model.clientDogs.FirstOrDefault(dog => dog.Id == walk.DogId).Name</td>
-            <td>@Model.clientOwners.FirstOrDefault(client => client.Id == Model.clientDogs.FirstOrDefault(dog => dog.Id == walk.DogId).OwnerId).Name</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (WalkSummaryViewModel Summary in Model.WalkSummaries)
+            {
+                <tr>
+                    <td>@Summary.walk.Date</td>
+                    <td>@Summary.walk.Dog.Name / @Summary.walk.Dog.Owner.Name</td>
+                    <td>@Summary.WalkDuration</td>
+
+                    @*how do i get this owner and dog data that i need to render on this page?
+                            I added a list of Owners and a list of Dogs to the view model
+                        here are few ways that I can think of (other than just adding owner and dog objects to the walks model)
+                        option 1 - using linq methods to sort my list data here on the view
+                        <td>@Model.clientDogs.FirstOrDefault(dog => dog.Id == walk.DogId).Name</td>
+                        <td>@Model.clientOwners.FirstOrDefault(client => client.Id == Model.clientDogs.FirstOrDefault(dog => dog.Id == walk.DogId).OwnerId).Name</td>
 
 
-            option 2 - using statement for utils repo and make methods static 
+                        option 2 - using statement for utils repo and make methods static
 
-            <td>@ViewUtils.GetDogFromListById(Model.clientDogs, walk.DogId).Name</td>
-            <td>@ViewUtils.GetOwnerFromListByDog(Model.clientOwners, ViewUtils.GetDogFromListById(Model.clientDogs, walk.DogId)).Name</td>
+                        <td>@ViewUtils.GetDogFromListById(Model.clientDogs, walk.DogId).Name</td>
+                        <td>@ViewUtils.GetOwnerFromListByDog(Model.clientOwners, ViewUtils.GetDogFromListById(Model.clientDogs, walk.DogId)).Name</td>
 
-            option 3 - make viewUtils instance in the view model mot static  an methods not static
-            <td>@Model.viewUtils.GetDogFromListById(Model.clientDogs, walk.DogId).Name</td>
-            <td>@Model.viewUtils.GetOwnerFromListByDog(Model.clientOwners, Model.viewUtils.GetDogFromListById(Model.clientDogs, walk.DogId)).Name</td>*@
-        </tr>
-        }
-    </tbody>
+                        option 3 - make viewUtils instance in the view model mot static  an methods not static
+                        <td>@Model.viewUtils.GetDogFromListById(Model.clientDogs, walk.DogId).Name</td>
+                        <td>@Model.viewUtils.GetOwnerFromListByDog(Model.clientOwners, Model.viewUtils.GetDogFromListById(Model.clientDogs, walk.DogId)).Name</td>*@
+                </tr>
+            }
+        </tbody>
     </table>
+                <h3>Total Walk Time: @Model.TotalWalkTime</h3>
 
 </body>
-        <hr />
-        <div>
-        </div>
-        <div>
-            @*@Html.ActionLink("Edit", "Edit", new { id = item.Id })*@
-            <a asp-action="Index">Back to List</a>
-        </div>
+<hr />
+<div>
+</div>
+<div>
+    @*@Html.ActionLink("Edit", "Edit", new { id = item.Id })*@
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -34,7 +34,7 @@ namespace DogGo.Controllers
         {
             int currentUserId = GetCurrentUserId();
            
-            return RedirectToAction("Details", currentUserId );
+            return RedirectToAction("Details", new { id = currentUserId } );
         }
 
 
@@ -43,6 +43,13 @@ namespace DogGo.Controllers
         // GET: OwnerController/Details/5
         public ActionResult Details(int id)
         {
+            int currentUserId = GetCurrentUserId();
+
+            if (currentUserId != id)
+            {
+                return NotFound();
+            }
+
             Owner owner = _ownerRepo.GetOwnerById(id);
             List<Dog> dogs = _dogRepo.GetDogsByOwnerId(owner.Id);
             List<Walker> walkers = _walkerRepo.GetWalkersInNeighborhood(owner.NeighborhoodId);

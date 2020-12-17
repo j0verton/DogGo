@@ -49,9 +49,9 @@ namespace DogGo.Controllers
                 Walker = walker,
                 Walks = walks,
                 Neighborhood = neighborhood,
-                WalkSummaries =new List<WalkSummaryViewModel>()
-                //clientOwners = clientOwners,
-                //clientDogs = clientDogs
+                WalkSummaries =new List<WalkSummaryViewModel>(),
+                clientOwners = clientOwners,
+                clientDogs = clientDogs
             };
                 foreach (Walk walk in vm.Walks)
                 {

@@ -1,4 +1,5 @@
-﻿using DogGo.Models;
+﻿using Doggo.Repositories.Utils;
+using DogGo.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -35,10 +36,11 @@ namespace DogGo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT w.Id, w.Duration, w.Date, w.WalkerId, DogId, d.Name, d.OwnerId, d.Breed
+                        SELECT w.Id, w.Duration, w.Date, w.WalkerId, DogId, d.Name, d.OwnerId, d.Breed, d.Notes, d.ImageURL, o.[Name] AS oName
                         FROM Walks w
                         JOIN Dog d ON w.DogId = d.Id
-                        WHERE Id = @id
+                        JOIN Owner o ON d.OwnerId = o.Id
+                        WHERE w.Id = @id
                     ";
                     cmd.Parameters.AddWithValue("@id", id);
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -58,7 +60,13 @@ namespace DogGo.Repositories
                                 Id = reader.GetInt32(reader.GetOrdinal("DogId")),
                                 Name = reader.GetString(reader.GetOrdinal("Name")),
                                 OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
+                                Owner = new Owner() 
+                                {
+                                    Name = reader.GetString(reader.GetOrdinal("oName"))
+                                },
                                 Breed = reader.GetString(reader.GetOrdinal("Breed")),
+                                Notes = ReaderUtils.GetNullableString(reader, "Notes"),
+                                ImageUrl = ReaderUtils.GetNullableString(reader, "ImageUrl"),
                             },
                             Duration = reader.GetInt32(reader.GetOrdinal("Duration"))
                         };
