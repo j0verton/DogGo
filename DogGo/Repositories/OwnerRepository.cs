@@ -140,17 +140,17 @@ namespace DogGo.Repositories
                             Email = reader.GetString(reader.GetOrdinal("Email")),
                             Phone = reader.GetString(reader.GetOrdinal("Phone")),
                             NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
-                            Neighborhood = new Neighborhood()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
-                                Name = reader.GetString(reader.GetOrdinal("Neighborhood")),
-                            }
+                            //Neighborhood = new Neighborhood()
+                            //{
+                            //    Id = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
+                            //    Name = reader.GetString(reader.GetOrdinal("Neighborhood")),
+                            //}
                         };
                         owners.Add(owner);
                     }
                     reader.Close();
                     return owners;
-                
+
                 }
             }
         }

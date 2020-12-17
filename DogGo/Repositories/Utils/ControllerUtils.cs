@@ -8,10 +8,10 @@ namespace DogGo.Repositories.Utils
 {
     public class ControllerUtils
     {
-        private int GetCurrentUserId()
-        {
-            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return int.Parse(id);
-        }
+        //private int GetCurrentUserId()
+        //{
+        //    string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    return int.Parse(id);
+        //}
     }
 }

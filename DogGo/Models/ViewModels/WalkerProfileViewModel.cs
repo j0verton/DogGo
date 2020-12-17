@@ -29,8 +29,7 @@ namespace DogGo.Models.ViewModels
             }
         }
 
-        public TimeSpan WalkDurationSpan(int durationSec) {
-            return new TimeSpan { 0, 0, durationSec };
-        }
+        public List<WalkSummaryViewModel> WalkSummaries { get; set; }
+
     }
 }
