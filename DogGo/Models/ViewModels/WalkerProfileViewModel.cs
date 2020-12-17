@@ -30,8 +30,7 @@ namespace DogGo.Models.ViewModels
         }
 
         public TimeSpan WalkDurationSpan(int durationSec) {
-            TimeSpan span = new TimeSpan { 0, 0, durationSec };
-            return span;
+            return new TimeSpan { 0, 0, durationSec };
         }
     }
 }

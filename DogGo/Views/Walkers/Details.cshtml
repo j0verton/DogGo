@@ -21,7 +21,7 @@
                 Date
             </th>
             <th>
-                Client
+                Client (dog / owner)
             </th>
             <th>
                 Duration
@@ -34,6 +34,8 @@
                 { 
         <tr>
             <td>@walk.Date</td>
+            <td>@walk.Dog.Name / @walk.Dog.Owner.Name</td>
+            @
 
             @*how do i get this owner and dog data that i need to render on this page?
                 I added a list of Owners and a list of Dogs to the view model
