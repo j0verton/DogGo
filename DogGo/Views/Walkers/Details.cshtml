@@ -1,4 +1,5 @@
 ﻿@model DogGo.Models.ViewModels.WalkerProfileViewModel
+@using DogGo.Repositories.Utils
 
 @{
     ViewData["Title"] = "Details";
@@ -44,12 +45,12 @@
 
             @*option 2 - can i make custom methods that i can just use here in the view? *@
 
-            <td>@ViewUtils.getDogFromListById(Model.clientDogs, walk.DogId).Name</td>
-            <td>@ViewUtils.getOwnerFromListByDog(Model.clientOwners, ViewUtils.getDogFromListById(Model.clientDogs, walk.DogId)).Name</td>
+            <td>@ViewUtils.GetDogFromListById(Model.clientDogs, walk.DogId).Name</td>
+            <td>@ViewUtils.GetOwnerFromListByDog(Model.clientOwners, ViewUtils.GetDogFromListById(Model.clientDogs, walk.DogId)).Name</td>
 
             @*option 3 - do i add a utils class into the view model? *@
-            <td>@Model.viewUtils.getDogFromListById(Model.clientDogs, walk.DogId).Name</td>
-            <td>@Model.viewUtils.getOwnerFromListByDog(Model.clientOwners, ViewUtils.getDogFromListById(Model.clientDogs, walk.DogId)).Name</td>
+            <td>@Model.viewUtils.GetDogFromListById(Model.clientDogs, walk.DogId).Name</td>
+            <td>@Model.viewUtils.GetOwnerFromListByDog(Model.clientOwners, Model.viewUtils.GetDogFromListById(Model.clientDogs, walk.DogId)).Name</td>
         </tr>
         }
     </tbody>

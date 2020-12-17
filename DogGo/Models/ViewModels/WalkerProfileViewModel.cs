@@ -17,6 +17,6 @@ namespace DogGo.Models.ViewModels
 
         public List<Dog> clientDogs { get; set; }
 
-        public static ViewUtils viewUtils { get; set; }
+        public ViewUtils viewUtils { get; set; }
     }
 }

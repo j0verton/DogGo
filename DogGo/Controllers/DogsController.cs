@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace DogGo.Controllers
 {
+        [Authorize]
     public class DogsController : Controller
     {
         private readonly IDogRepository _dogRepo;
@@ -22,7 +23,6 @@ namespace DogGo.Controllers
         // GET: OwnerController
         // /dog/index
         // uncomment this v when ready , can slso move it above class to lock down all routes
-        [Authorize]
         public ActionResult Index()
         {
             int ownerId = GetCurrentUserId();
@@ -37,6 +37,11 @@ namespace DogGo.Controllers
         public ActionResult Details(int id)
         {
             Dog dog = _dogRepo.GetDogById(id);
+            int currentUserId = GetCurrentUserId();
+            if (dog.OwnerId != currentUserId)
+            {
+                return NotFound();
+            }
             if (dog == null)
             {
                 return NotFound();
