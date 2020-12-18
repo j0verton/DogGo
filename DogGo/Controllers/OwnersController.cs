@@ -159,7 +159,6 @@ namespace DogGo.Controllers
             return View();
         }
 
-
         [HttpPost]
         public async Task<ActionResult> Login(LoginViewModel viewModel)
         {
@@ -187,6 +186,7 @@ namespace DogGo.Controllers
             return RedirectToAction("Index", "Dogs");
         }
 
+        //why can't i move this to another class?
         private int GetCurrentUserId()
         {
             string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
