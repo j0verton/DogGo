@@ -3,11 +3,11 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<body class="bg-info">
 <h1>Walkers in your Neighborhood</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @*<a asp-action="Create">Create New</a>*@
 </p>
 <section class="d-flex flex-row flex-wrap justify-content-around">
         @foreach (var item in Model)
@@ -18,12 +18,13 @@
                 <div class="card-body">
                     <h5 class="card-title">@item.Name</h5>
                     <p class="card-text">Number of Walks</p>
-                    <a class="btn btn-primary nav-link" asp-area="" asp-controller="Walkers" asp-action="Details">Walkers</a>
+                    <a class="btn btn-primary nav-link" asp-area="" asp-route-id="@item.Id" asp-controller="Walkers" asp-action="Details">Walkers</a>
                     @*<a href="#" class="btn btn-primary">Details</a>*@
                 </div>
             </div>
         }
  </section>
+    </body>
 
             @*<tr>
                 <td>

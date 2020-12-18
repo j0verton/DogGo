@@ -13,7 +13,6 @@
 </header>
 
 <body>
-
     <table class="table">
         <thead>
             <tr>
@@ -26,7 +25,6 @@
                 <th>
                     Duration
                 </th>
-
             </tr>
         </thead>
         <tbody>
@@ -38,12 +36,11 @@
                     <td>@Summary.WalkDuration</td>
 
                     @*how do i get this owner and dog data that i need to render on this page?
-                            I added a list of Owners and a list of Dogs to the view model
+                        I added a list of Owners and a list of Dogs to the view model
                         here are few ways that I can think of (other than just adding owner and dog objects to the walks model)
                         option 1 - using linq methods to sort my list data here on the view
                         <td>@Model.clientDogs.FirstOrDefault(dog => dog.Id == walk.DogId).Name</td>
                         <td>@Model.clientOwners.FirstOrDefault(client => client.Id == Model.clientDogs.FirstOrDefault(dog => dog.Id == walk.DogId).OwnerId).Name</td>
-
 
                         option 2 - using statement for utils repo and make methods static
 
