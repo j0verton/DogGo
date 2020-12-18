@@ -1,6 +1,7 @@
 ﻿using DogGo.Models;
 using DogGo.Models.ViewModels;
 using DogGo.Repositories;
+using DogGo.Repositories.Utils;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -32,7 +33,7 @@ namespace DogGo.Controllers
         // GET: OwnerController
         public ActionResult Index()
         {
-            int currentUserId = GetCurrentUserId();
+            int currentUserId = ControllerUtils.GetCurrentUserId(User);
            
             return RedirectToAction("Details", new { id = currentUserId } );
         }
@@ -43,7 +44,7 @@ namespace DogGo.Controllers
         // GET: OwnerController/Details/5
         public ActionResult Details(int id)
         {
-            int currentUserId = GetCurrentUserId();
+            int currentUserId = ControllerUtils.GetCurrentUserId(User);
 
             if (currentUserId != id)
             {
@@ -186,11 +187,10 @@ namespace DogGo.Controllers
             return RedirectToAction("Index", "Dogs");
         }
 
-        //why can't i move this to another class?
-        private int GetCurrentUserId()
+        public async Task<ActionResult> Logout()
         {
-            string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            return int.Parse(id);
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Login");
         }
     }
 }

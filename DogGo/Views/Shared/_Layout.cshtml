@@ -34,7 +34,9 @@
                                 </li>
                             }
                             <li class="nav-item ml-auto">Welcome @User.FindFirst(ClaimTypes.Email).Value</li>
-
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Owners" asp-action="Logout">Log Out</a>
+                            </li>
                             @*add my profile to owners/details/id *@
                         }
                         else
