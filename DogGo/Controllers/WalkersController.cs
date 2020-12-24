@@ -73,6 +73,14 @@ namespace DogGo.Controllers
             return View(vm);
         }
 
+        // 
+        public ActionResult Book(int id)
+        {
+            Walker walker = _walkerRepo.GetWalkerById(id);
+
+            return View(vm);
+        }
+
         // GET: WalkersController/Create
         public ActionResult Create()
         {
