@@ -67,10 +67,13 @@
             <ul class="list-group mt-4">
                 @foreach (Walker walker in Model.Walkers)
                 {
-                    <li class="list-group-item disabled" aria-disabled="true">
-                        <img src="@walker.ImageUrl" style="width:50px" />
-                        <span class="font-weight-bold ml-4">@walker.Name</span>
-                    </li>
+                <li class="list-group-item disabled" aria-disabled="true">
+                    <img src="@walker.ImageUrl" style="width:50px" />
+                    <span class="font-weight-bold ml-4">@walker.Name</span>
+                    @Html.ActionLink("Request a Walk", "Book", "Walkers", new { id = @walker.Id })
+                    @*<a class="btn btn-primary nav-link" asp-area="" asp-route-id="@walker.Id" asp-controller="Walkers" asp-action="Book">Request a Walk</a>*@
+                </li>
+
                 }
             </ul>
         </section>

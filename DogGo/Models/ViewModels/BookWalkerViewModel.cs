@@ -7,11 +7,11 @@ namespace DogGo.Models.ViewModels
 {
     public class BookWalkerViewModel
     {
-        Walker Walker { get; set; }
-        List<Walk> CurrentWalks { get; set; }
+        public Walker Walker { get; set; }
+        public List<Walk> CurrentWalks { get; set; }
 
-        Owner CurrentOwner { get; set; }
+        public Owner CurrentOwner { get; set; }
 
-       List<Dog> OwnerDogs { get; set; }
+        public List<Dog> OwnerDogs { get; set; }
     }
 }

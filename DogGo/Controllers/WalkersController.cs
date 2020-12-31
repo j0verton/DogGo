@@ -76,7 +76,14 @@ namespace DogGo.Controllers
         // 
         public ActionResult Book(int id)
         {
-            Walker walker = _walkerRepo.GetWalkerById(id);
+            BookWalkerViewModel vm = new BookWalkerViewModel
+            {
+
+                Walker = _walkerRepo.GetWalkerById(id),
+                CurrentWalks = _walkRepo.GetWalksByWalkerId(id),
+                CurrentOwner = _ownerRepo.GetOwnerById(GetCurrentUserId()),
+                OwnerDogs = _dogRepo.GetDogsByOwnerId(GetCurrentUserId())
+            };
 
             return View(vm);
         }
