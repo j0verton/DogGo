@@ -22,7 +22,7 @@ namespace DogGo.Controllers
         }
         // GET: OwnerController
         // /dog/index
-        // uncomment this v when ready , can slso move it above class to lock down all routes
+        // uncomment this v when ready , can also move it above class to lock down all routes
         public ActionResult Index()
         {
             int ownerId = GetCurrentUserId();

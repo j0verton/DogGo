@@ -79,5 +79,26 @@ namespace DogGo.Repositories
 
             }
         }
+
+        public void RequestWalk(Walk walk)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                    INSERT INTO Walk (Date, WalkStatusId, DogId, WalkerId)
+                    OUTPUT INSERTED.ID
+                    VALUES (@date, @walkstatusid, @dogid, @walkerid)
+                    ";
+                    cmd.Parameters.AddWithValue("@date", walk.Date);
+                    cmd.Parameters.AddWithValue("@walkstatusid", "requested");
+                    cmd.Parameters.AddWithValue("@dogid", walk.DogId);
+                    cmd.Parameters.AddWithValue("@walkerid", walk.WalkerId);
+                    int id = (int)cmd.ExecuteScalar();
+                    walk.Id = id;
+
+                }
     }
 }

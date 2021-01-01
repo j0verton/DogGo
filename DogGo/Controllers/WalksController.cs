@@ -12,6 +12,20 @@ namespace DogGo.Controllers
 {
     public class WalksController : DogGoControllerBase
     {
+
+        private readonly IWalkerRepository _walkerRepo;
+        private readonly IWalkRepository _walkRepo;
+        private readonly IOwnerRepository _ownerRepo;
+        private readonly IDogRepository _dogRepo;
+
+        // ASP.NET will give us an instance of our Walker Repository. This is called "Dependency Injection"
+        public WalksController(IWalkerRepository walkerRepository, IWalkRepository walkRepository, IOwnerRepository ownerRepository, IDogRepository dogRepository)
+        {
+            _walkerRepo = walkerRepository;
+            _walkRepo = walkRepository;
+            _ownerRepo = ownerRepository;
+            _dogRepo = dogRepository;
+        }
         // GET: WalksController
         public ActionResult Index()
         {
@@ -25,9 +39,17 @@ namespace DogGo.Controllers
         }
 
         // GET: WalksController/Create
-        public ActionResult Create()
+        public ActionResult Create(int id)
         {
-            return View();
+            BookWalkerViewModel vm = new BookWalkerViewModel()
+            {
+                Walker = _walkerRepo.GetWalkerById(id),
+                CurrentWalks = _walkRepo.GetWalksByWalkerId(id),
+                CurrentOwner = _ownerRepo.GetOwnerById(GetCurrentUserId()),
+                OwnerDogs = _dogRepo.GetDogsByOwnerId(GetCurrentUserId())
+            };
+
+            return View(vm);
         }
 
         // POST: WalksController/Create
