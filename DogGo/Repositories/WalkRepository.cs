@@ -93,7 +93,7 @@ namespace DogGo.Repositories
                     VALUES (@date, @walkstatusid, @dogid, @walkerid)
                     ";
                     cmd.Parameters.AddWithValue("@date", walk.Date);
-                    cmd.Parameters.AddWithValue("@walkstatusid", "requested");
+                    cmd.Parameters.AddWithValue("@walkstatusid", 1);
                     cmd.Parameters.AddWithValue("@dogid", walk.DogId);
                     cmd.Parameters.AddWithValue("@walkerid", walk.WalkerId);
                     int id = (int)cmd.ExecuteScalar();
