@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DogGo.Controllers
 {
-    public class DoggoControllerBase : Controller
+    public class DogGoControllerBase : Controller
     {
         protected int GetCurrentUserId()
         {
