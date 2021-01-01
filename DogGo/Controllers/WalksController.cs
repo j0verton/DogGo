@@ -65,7 +65,9 @@ namespace DogGo.Controllers
             }
             catch
             {
-                return View(vm);
+                BookWalkerViewModel reloadVM = vm;
+                reloadVM.OwnerDogs = _dogRepo.GetDogsByOwnerId(GetCurrentUserId());
+                return View(reloadVM);
             }
         }
 
