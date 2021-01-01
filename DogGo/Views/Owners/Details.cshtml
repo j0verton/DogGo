@@ -70,8 +70,9 @@
                 <li class="list-group-item disabled" aria-disabled="true">
                     <img src="@walker.ImageUrl" style="width:50px" />
                     <span class="font-weight-bold ml-4">@walker.Name</span>
-                    @Html.ActionLink("Request a Walk", "Book", "Walkers", new { id = @walker.Id })
+                    @Html.ActionLink("Request a Walk", "Book", "Walkers", null, new { id = @walker.Id })
                     <a class="btn btn-primary nav-link" asp-route-id="@walker.Id" asp-controller="Walkers" asp-action="Book">Request a Walk</a>
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Owners" asp-action="Index">My Profile</a>
                 </li>
 
                 }
