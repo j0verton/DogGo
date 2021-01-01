@@ -60,7 +60,7 @@ namespace DogGo.Repositories
                                 Id = reader.GetInt32(reader.GetOrdinal("DogId")),
                                 Name = reader.GetString(reader.GetOrdinal("Name")),
                                 OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
-                                Owner = new Owner() 
+                                Owner = new Owner()
                                 {
                                     Name = reader.GetString(reader.GetOrdinal("oName"))
                                 },
@@ -100,5 +100,7 @@ namespace DogGo.Repositories
                     walk.Id = id;
 
                 }
+            }
+        }
     }
 }
