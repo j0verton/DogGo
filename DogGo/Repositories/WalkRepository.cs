@@ -40,7 +40,7 @@ namespace DogGo.Repositories
                         FROM Walks w
                         JOIN Dog d ON w.DogId = d.Id
                         JOIN Owner o ON d.OwnerId = o.Id
-                        WHERE w.Id = @id
+                        WHERE w.WalkerId = @id
                     ";
                     cmd.Parameters.AddWithValue("@id", id);
                     SqlDataReader reader = cmd.ExecuteReader();
