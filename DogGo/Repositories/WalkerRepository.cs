@@ -98,12 +98,43 @@ namespace DogGo.Repositories
         }
 
         public Walker GetWalkerByEmail(string email)
-        { 
-        
-        
-        
-        
-        
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT Id, [Name], ImageUrl, NeighborhoodId, Email
+                        FROM Walker
+                        WHERE Id = @email
+                    ";
+
+                    cmd.Parameters.AddWithValue("@email", email);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        Walker walker = new Walker
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            ImageUrl = reader.GetString(reader.GetOrdinal("ImageUrl")),
+                            NeighborhoodId = reader.GetInt32(reader.GetOrdinal("NeighborhoodId")),
+                            Email = reader.GetString(reader.GetOrdinal("Email"))
+                        };
+
+                        reader.Close();
+                        return walker;
+                    }
+                    else
+                    {
+                        reader.Close();
+                        return null;
+                    }
+                }
+            }
         }
 
         public List<Walker> GetWalkersInNeighborhood(int neighborhoodId)
