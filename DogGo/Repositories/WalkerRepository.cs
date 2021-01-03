@@ -97,6 +97,15 @@ namespace DogGo.Repositories
             }
         }
 
+        public Walker GetWalkerByEmail(string email)
+        { 
+        
+        
+        
+        
+        
+        }
+
         public List<Walker> GetWalkersInNeighborhood(int neighborhoodId)
         {
             using (SqlConnection conn = Connection)
