@@ -166,17 +166,17 @@ namespace DogGo.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(LoginViewModel viewModel)
         {
-            Owner owner = _ownerRepo.GetOwnerByEmail(viewModel.Email);
+            Walker walker = _walkerRepo.GetWalkerByEmail(viewModel.Email);
 
-            if (owner == null)
+            if (walker == null)
             {
                 return Unauthorized();
             }
 
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, owner.Id.ToString()),
-                new Claim(ClaimTypes.Email, owner.Email),
+                new Claim(ClaimTypes.NameIdentifier, walker.Id.ToString()),
+                new Claim(ClaimTypes.Email, walker.Email),
                 new Claim(ClaimTypes.Role, "Walker"),
             };
 
