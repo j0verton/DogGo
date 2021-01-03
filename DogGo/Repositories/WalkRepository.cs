@@ -55,19 +55,19 @@ namespace DogGo.Repositories
                             Date = reader.GetDateTime(reader.GetOrdinal("Date")),
                             WalkerId = reader.GetInt32(reader.GetOrdinal("WalkerId")),
                             DogId = reader.GetInt32(reader.GetOrdinal("DogId")),
-                            Dog = new Dog()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("DogId")),
-                                Name = reader.GetString(reader.GetOrdinal("Name")),
-                                OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
-                                Owner = new Owner()
-                                {
-                                    Name = reader.GetString(reader.GetOrdinal("oName"))
-                                },
-                                Breed = reader.GetString(reader.GetOrdinal("Breed")),
-                                Notes = ReaderUtils.GetNullableString(reader, "Notes"),
-                                ImageUrl = ReaderUtils.GetNullableString(reader, "ImageUrl"),
-                            },
+                            //Dog = new Dog()
+                            //{
+                            //    Id = reader.GetInt32(reader.GetOrdinal("DogId")),
+                            //    Name = reader.GetString(reader.GetOrdinal("Name")),
+                            //    OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
+                            //    Owner = new Owner()
+                            //    {
+                            //        Name = reader.GetString(reader.GetOrdinal("oName"))
+                            //    },
+                            //    Breed = reader.GetString(reader.GetOrdinal("Breed")),
+                            //    Notes = ReaderUtils.GetNullableString(reader, "Notes"),
+                            //    ImageUrl = ReaderUtils.GetNullableString(reader, "ImageUrl"),
+                            //},
                             Duration = reader.GetInt32(reader.GetOrdinal("Duration"))
                         };
                         walks.Add(walk);
@@ -88,11 +88,12 @@ namespace DogGo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                    INSERT INTO Walk (Date, WalkStatusId, DogId, WalkerId)
+                    INSERT INTO Walk (Date,Duration, WalkStatusId, DogId, WalkerId)
                     OUTPUT INSERTED.ID
-                    VALUES (@date, @walkstatusid, @dogid, @walkerid)
+                    VALUES (@date, @duration, @walkstatusid, @dogid, @walkerid)
                     ";
                     cmd.Parameters.AddWithValue("@date", walk.Date);
+                    cmd.Parameters.AddWithValue("@duration", walk.Duration);
                     cmd.Parameters.AddWithValue("@walkstatusid", 1);
                     cmd.Parameters.AddWithValue("@dogid", walk.DogId);
                     cmd.Parameters.AddWithValue("@walkerid", walk.WalkerId);
