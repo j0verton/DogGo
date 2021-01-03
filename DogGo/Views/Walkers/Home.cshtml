@@ -1,5 +1,5 @@
 ﻿@model DogGo.Models.ViewModels.WalkerProfileViewModel
-
+@using DogGo.Models.ViewModels
 @{
     ViewData["Title"] = "Home";
 }
@@ -9,14 +9,43 @@
 <div>
     <h4>WalkerProfileViewModel</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalWalkTime)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TotalWalkTime)
-        </dd>
-    </dl>
+    @*<dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.TotalWalkTime)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TotalWalkTime)
+            </dd>
+        </dl>*@
+
+    <body>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Date
+                    </th>
+                    <th>
+                        Client (dog / owner)
+                    </th>
+                    <th>
+                        Duration
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (WalkSummaryViewModel Summary in Model.WalkSummaries)
+                {
+                    <tr>
+                        <td>@Summary.walk.Date</td>
+                        <td>@Summary.WalkDuration</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h3>Total Walk Time: @Model.TotalWalkTime</h3>
+
+    </body>
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
