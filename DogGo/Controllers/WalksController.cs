@@ -46,7 +46,13 @@ namespace DogGo.Controllers
                 Walker = _walkerRepo.GetWalkerById(id),
                 CurrentWalks = _walkRepo.GetWalksByWalkerId(id),
                 CurrentOwner = _ownerRepo.GetOwnerById(GetCurrentUserId()),
-                OwnerDogs = _dogRepo.GetDogsByOwnerId(GetCurrentUserId())
+                OwnerDogs = _dogRepo.GetDogsByOwnerId(GetCurrentUserId()),
+                Walk = new Walk()
+                {
+                    Date = DateTime.Now,
+                    WalkerId = _walkerRepo.GetWalkerById(id).Id,
+                    WalkStatusId = 1
+                },
             };
 
             return View(vm);
