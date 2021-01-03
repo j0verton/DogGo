@@ -55,19 +55,19 @@ namespace DogGo.Repositories
                             Date = reader.GetDateTime(reader.GetOrdinal("Date")),
                             WalkerId = reader.GetInt32(reader.GetOrdinal("WalkerId")),
                             DogId = reader.GetInt32(reader.GetOrdinal("DogId")),
-                            //Dog = new Dog()
-                            //{
-                            //    Id = reader.GetInt32(reader.GetOrdinal("DogId")),
-                            //    Name = reader.GetString(reader.GetOrdinal("Name")),
-                            //    OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
-                            //    Owner = new Owner()
-                            //    {
-                            //        Name = reader.GetString(reader.GetOrdinal("oName"))
-                            //    },
-                            //    Breed = reader.GetString(reader.GetOrdinal("Breed")),
-                            //    Notes = ReaderUtils.GetNullableString(reader, "Notes"),
-                            //    ImageUrl = ReaderUtils.GetNullableString(reader, "ImageUrl"),
-                            //},
+                            Dog = new Dog()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("DogId")),
+                                Name = reader.GetString(reader.GetOrdinal("Name")),
+                                OwnerId = reader.GetInt32(reader.GetOrdinal("OwnerId")),
+                                Owner = new Owner()
+                                {
+                                    Name = reader.GetString(reader.GetOrdinal("oName"))
+                                },
+                                Breed = reader.GetString(reader.GetOrdinal("Breed")),
+                                Notes = ReaderUtils.GetNullableString(reader, "Notes"),
+                                ImageUrl = ReaderUtils.GetNullableString(reader, "ImageUrl"),
+                            },
                             Duration = reader.GetInt32(reader.GetOrdinal("Duration"))
                         };
                         walks.Add(walk);
