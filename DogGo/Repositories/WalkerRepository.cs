@@ -107,7 +107,7 @@ namespace DogGo.Repositories
                     cmd.CommandText = @"
                         SELECT Id, [Name], ImageUrl, NeighborhoodId, Email
                         FROM Walker
-                        WHERE Id = @email
+                        WHERE Email = @email
                     ";
 
                     cmd.Parameters.AddWithValue("@email", email);

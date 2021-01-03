@@ -34,6 +34,8 @@ namespace DogGo
             services.AddControllersWithViews();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => options.LoginPath = "/Owners/LogIn");
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            //    .AddCookie(options => options.LoginPath = "/Walkers/LogIn");
 
         }
 

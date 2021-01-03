@@ -187,7 +187,7 @@ namespace DogGo.Controllers
                 CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity));
 
-            return RedirectToAction("Index", "Dogs");
+            return RedirectToAction("Index", "Walks");
         }
 
         public async Task<ActionResult> Logout()

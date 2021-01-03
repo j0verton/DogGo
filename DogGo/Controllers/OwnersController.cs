@@ -167,9 +167,31 @@ namespace DogGo.Controllers
 
             if (owner == null)
             {
-                return Unauthorized();
-            }
+                Walker walker = _walkerRepo.GetWalkerByEmail(viewModel.Email);
 
+                if (walker == null)
+                {
+                    return Unauthorized();
+                }
+
+                List<Claim> claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, walker.Id.ToString()),
+                new Claim(ClaimTypes.Email, walker.Email),
+                new Claim(ClaimTypes.Role, "Walker"),
+            };
+
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(
+                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    new ClaimsPrincipal(claimsIdentity));
+
+                return RedirectToAction("Index", "Walks");
+            } 
+            else 
+            { 
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, owner.Id.ToString()),
@@ -185,6 +207,7 @@ namespace DogGo.Controllers
                 new ClaimsPrincipal(claimsIdentity));
 
             return RedirectToAction("Index", "Dogs");
+            }
         }
 
         public async Task<ActionResult> Logout()

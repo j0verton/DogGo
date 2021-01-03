@@ -29,7 +29,13 @@ namespace DogGo.Controllers
         // GET: WalksController
         public ActionResult Index()
         {
-            return View();
+
+            int ownerId = GetCurrentUserId();
+
+            List<Walk> walks = _walkRepo.GetWalksByWalkerId(ownerId);
+
+            return View(walks);
+            
         }
 
         // GET: WalksController/Details/5
