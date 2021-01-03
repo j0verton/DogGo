@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace DogGo.Controllers
 {
-    public class WalkersController : Controller
+    public class WalkersController : DogGoControllerBase
     {
         private IWalkerRepository _walkerRepo;
         private IWalkRepository _walkRepo;
@@ -39,6 +39,41 @@ namespace DogGo.Controllers
             List<Walker> walkers = _walkerRepo.GetAllWalkers();
             
             return View(walkers.Where(walker => walker.NeighborhoodId == currentOwner.NeighborhoodId));
+        }
+
+
+        public ActionResult Home()
+        {
+            int currentUserId = GetCurrentUserId();
+            Walker walker = _walkerRepo.GetWalkerById(currentUserId);
+            List<Walk> walks = _walkRepo.GetWalksByWalkerId(walker.Id);
+            Neighborhood neighborhood = _neighborhoodRepo.GetNeighborhoodById(walker.NeighborhoodId);
+            List<Owner> clientOwners = _ownerRepo.GetOwnersByEmployedWalkerId(walker.Id);
+            List<Dog> clientDogs = _dogRepo.GetDogsByEmployedWalkerId(walker.Id);
+
+            WalkerProfileViewModel vm = new WalkerProfileViewModel()
+            {
+                Walker = walker,
+                Walks = walks,
+                Neighborhood = neighborhood,
+                WalkSummaries = new List<WalkSummaryViewModel>(),
+                clientOwners = clientOwners,
+                clientDogs = clientDogs
+            };
+            foreach (Walk walk in vm.Walks)
+            {
+                vm.WalkSummaries.Add(new WalkSummaryViewModel()
+                {
+                    walk = walk
+                });
+            }
+
+            if (vm.Walker == null)
+            {
+                return NotFound();
+            }
+
+            return View(vm);
         }
 
         // GET: WalkersController/Details/5
