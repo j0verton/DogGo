@@ -44,27 +44,43 @@
                         Date
                     </th>
                     <th>
-                        Client (dog / owner)
+                        Dog
+                    </th>
+                    <th>
+                        Owner
                     </th>
                     <th>
                         Duration
                     </th>
                     <th>
-                        Duration
+                        Date
                     </th>
                     <th>
-                        Duration
+                        Status
                     </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (WalkSummaryViewModel Summary in Model.WalkSummaries)
                 {
+                    if (Summary.walk.WalkStatusId !=1 )
+                        { 
                     <tr>
                         <td>@Summary.walk.Date</td>
-                        <td>
-                        <td>@Summary.WalkDuration</td>
+                        <td>@Summary.walk.Dog.Name</td>
+                        <td>>@Summary.walk.Dog.Owner.Name</td>
+                        @if (Summary.walk.WalkStatusId == 2)
+                        {
+                            <td>TBD</td>
+                        }
+                        else
+                        { 
+                            <td><a class="btn btn-secondary" href="@Url.Action("Edit", "Walks", new { id = Summary.walk.Id })">Complete</a></td>
+                        }
+                        <td>@Summary.walk.Date</td>
+                        <td></td>
                     </tr>
+                    }
                 }
             </tbody>
         </table>
