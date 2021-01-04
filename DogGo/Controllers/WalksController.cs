@@ -71,7 +71,6 @@ namespace DogGo.Controllers
         {
             try
             {
-
                 _walkRepo.RequestWalk(vm.Walk);
                 return RedirectToAction(nameof(Index), "Owners");
             }
