@@ -118,7 +118,7 @@ namespace DogGo.Repositories
                         WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
 
-
+                    cmd.ExecuteNonQuery();
                 }
             
             }
