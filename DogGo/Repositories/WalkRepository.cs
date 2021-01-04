@@ -175,7 +175,7 @@ namespace DogGo.Repositories
                 {
                     cmd.CommandText = @"
                         UPDATE Walks
-                        SET WalkStatusId = 2
+                        SET WalkStatusId = 3
                         SET Duration = @duration
                         WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
