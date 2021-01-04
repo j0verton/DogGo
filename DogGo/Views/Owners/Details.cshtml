@@ -34,13 +34,17 @@
                     <div class="card m-4" style="width: 18rem;">
                         @if (String.IsNullOrEmpty(dog.ImageUrl))
                         {
+                        <a href="@Url.Action("Details", "Dogs", new { id = dog.Id })">
                             <img src="https://cdn.pixabay.com/photo/2018/08/15/13/12/dog-3608037_960_720.jpg"
                                  class="card-img-top"
                                  alt="Doggo" />
-                        }
-                        else
-                        {
-                            <img src="@dog.ImageUrl" class="card-img-top" alt="Doggo" />
+                            </a>
+                            }
+                            else
+                            {
+                    <a href="@Url.Action("Details", "Dogs", new { id = dog.Id })">
+                        <img src="@dog.ImageUrl" class="card-img-top" alt="Doggo" />
+                        </a>
                         }
                         <div class="card-body">
                             <div>
@@ -56,7 +60,7 @@
                                 <p>@dog.Notes</p>
                             </div>
                         </div>
-                    </div>
+</div>
                 }
             </div>
         </section>
