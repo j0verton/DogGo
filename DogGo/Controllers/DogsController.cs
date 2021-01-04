@@ -1,4 +1,5 @@
 ﻿using DogGo.Models;
+using DogGo.Models.ViewModels;
 using DogGo.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -15,8 +16,9 @@ namespace DogGo.Controllers
     public class DogsController : Controller
     {
         private readonly IDogRepository _dogRepo;
+        private readonly IWalkRepository _walkRepo;
 
-        public DogsController(IDogRepository dogRepository)
+        public DogsController(IDogRepository dogRepository, IWalkRepository walkRepository)
         {
             _dogRepo = dogRepository;
         }
@@ -37,6 +39,7 @@ namespace DogGo.Controllers
         public ActionResult Details(int id)
         {
             Dog dog = _dogRepo.GetDogById(id);
+            List<Walk> walks = _walkRepo.GetWalksByDogId(id);
             int currentUserId = GetCurrentUserId();
             if (dog.OwnerId != currentUserId)
             {
@@ -46,7 +49,14 @@ namespace DogGo.Controllers
             {
                 return NotFound();
             }
-            return View(dog);
+
+            DogProfileViewModel vm = new DogProfileViewModel()
+            {
+                Dog = dog,
+                Walks = walks
+
+            };
+            return View(vm);
         }
 
         // GET: DogController1/Create
