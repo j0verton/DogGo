@@ -104,5 +104,24 @@ namespace DogGo.Repositories
                 }
             }
         }
+
+        public void ConfirmWalkRequest(int id)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        UPDATE Walks
+                        SET WalkStatusId = 2
+                        WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", id);
+
+
+                }
+            
+            }
+        }
     }
 }

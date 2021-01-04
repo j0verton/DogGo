@@ -17,5 +17,7 @@ namespace DogGo.Models.ViewModels
                 return new TimeSpan(0, 0, walk.Duration);
             }
         }
+
+
     }
 }

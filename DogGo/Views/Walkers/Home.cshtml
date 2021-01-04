@@ -19,6 +19,24 @@
         </dl>*@
 
     <body>
+        <div>
+            <h3 class="text-left">Confirm Appointments</h3>
+            @foreach (Walk walk in Model.PendingWalks)
+            { 
+            <div class="card border-bottom p-3 mb-2 bg-secondary" style="width: 18rem;">
+                <img class="card-img-top" src="@walk.Dog.ImageUrl" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@walk.Dog.Name</h5>
+                    <h5>Owner:@walk.Dog.Owner.Name</h5>
+                    <p class="card-text">Date: @walk.Date</p>
+                    <a class="btn btn-primary nav-link" asp-area="" asp-route-id="@walk.Id" asp-controller="Walk" asp-action="Confirm">Confirm</a>
+                </div>
+            </div>
+            }
+
+        </div>
+
+
         <table class="table">
             <thead>
                 <tr>
@@ -31,6 +49,12 @@
                     <th>
                         Duration
                     </th>
+                    <th>
+                        Duration
+                    </th>
+                    <th>
+                        Duration
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +62,7 @@
                 {
                     <tr>
                         <td>@Summary.walk.Date</td>
+                        <td>
                         <td>@Summary.WalkDuration</td>
                     </tr>
                 }

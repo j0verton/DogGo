@@ -30,6 +30,13 @@ namespace DogGo.Models.ViewModels
         }
 
         public List<WalkSummaryViewModel> WalkSummaries { get; set; }
+        public List<Walk> PendingWalks { 
+            get
+            {
+                List<Walk> walks = Walks.Where(w => w.WalkStatusId == 1).ToList();
+                return walks;
+            }
 
+        }
     }
 }

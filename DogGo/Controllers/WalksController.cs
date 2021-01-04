@@ -124,5 +124,11 @@ namespace DogGo.Controllers
                 return View();
             }
         }
+
+        public ActionResult Confirm(int id)
+        {
+            _walkRepo.ConfirmWalkRequest(id);
+            return RedirectToAction(nameof(Home), "Walkers");
+        }
     }
 }
