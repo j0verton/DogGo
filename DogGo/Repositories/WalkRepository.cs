@@ -173,13 +173,13 @@ namespace DogGo.Repositories
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
+                    int walkduration = duration * 60;
                     cmd.CommandText = @"
                         UPDATE Walks
-                        SET WalkStatusId = 3
-                        SET Duration = @duration
+                        SET WalkStatusId = 3, Duration = @duration
                         WHERE Id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@duration", duration);
+                    cmd.Parameters.AddWithValue("@duration", walkduration);
 
                     cmd.ExecuteNonQuery();
                 }

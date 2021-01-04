@@ -121,17 +121,17 @@ namespace DogGo.Controllers
         // POST: WalksController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Complete(int id, int duration)
+        public ActionResult Complete(int id, Walk walk)
         {
             try
             {
-                _walkRepo.CompleteWalk(id, duration);
+                _walkRepo.CompleteWalk(id, walk.Duration);
 
                 return RedirectToAction("Home", "Walkers");
             }
             catch
             {
-                Walk walk = _walkRepo.GetWalkById(id);
+                walk = _walkRepo.GetWalkById(id);
                 return View(walk);
             }
         }
