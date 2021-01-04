@@ -34,17 +34,17 @@
                     <div class="card m-4" style="width: 18rem;">
                         @if (String.IsNullOrEmpty(dog.ImageUrl))
                         {
-                        <a href="@Url.Action("Details", "Dogs", new { id = dog.Id })">
-                            <img src="https://cdn.pixabay.com/photo/2018/08/15/13/12/dog-3608037_960_720.jpg"
-                                 class="card-img-top"
-                                 alt="Doggo" />
+                            <a href="@Url.Action("Details", "Dogs", new { id = dog.Id })">
+                                <img src="https://cdn.pixabay.com/photo/2018/08/15/13/12/dog-3608037_960_720.jpg"
+                                     class="card-img-top"
+                                     alt="Doggo" />
                             </a>
-                            }
-                            else
-                            {
-                    <a href="@Url.Action("Details", "Dogs", new { id = dog.Id })">
-                        <img src="@dog.ImageUrl" class="card-img-top" alt="Doggo" />
-                        </a>
+                        }
+                        else
+                        {
+                            <a href="@Url.Action("Details", "Dogs", new { id = dog.Id })">
+                                <img src="@dog.ImageUrl" class="card-img-top" alt="Doggo" />
+                            </a>
                         }
                         <div class="card-body">
                             <div>
@@ -60,27 +60,74 @@
                                 <p>@dog.Notes</p>
                             </div>
                         </div>
-</div>
+                    </div>
                 }
             </div>
         </section>
+        <section>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Walker
+                        </th>
+                        <th>
+                            Duration
+                        </th>
+                        <th>
+                            Walk Status
+                        </th>
 
-        <section class="col-lg-4 col-md-8 container mt-5">
-            <h1>Walkers Near Me</h1>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Walk walk in Model.Walks)
+                    {
+                    <tr>
+                        <td>@walk.Date</td>
+                        <td>@walk.WalkerId</td>
 
-            <ul class="list-group mt-4">
-                @foreach (Walker walker in Model.Walkers)
-                {
-                <li class="list-group-item disabled" aria-disabled="true">
-                    <img src="@walker.ImageUrl" style="width:50px" />
-                    <span class="font-weight-bold ml-4">@walker.Name</span>
-                    @Html.ActionLink("Request a Walk", "Create", "Walks", null, new { id = @walker.Id })
-                    <a class="btn btn-primary nav-link" asp-route-id="@walker.Id" asp-controller="Walks" asp-action="Create">Request a Walk</a>
-                    <a class="btn btn-secondary btn-sm ml-auto rounded-pill" href="@Url.Action("Create", "Walks", new { id = walker.Id })" role="button">Schedule a Walk</a>
-                </li>
+                        @if (walk.WalkStatusId == 1)
+                        {
+                            <td>TBD</td>
+                            <td>Pending</td>
+                        }
+                        else if (walk.WalkStatusId == 2)
+                        {
+                            <td>TBD</td>
+                            <td>Confirmed</td>
+                        }
+                        else
+                        {
+                            <td>@(walk.Duration / 60) min</td>
+                            <td>Complete</td>
+                        }
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            </section>
 
-                }
-            </ul>
-        </section>
-    </div>
+
+                <section class="col-lg-4 col-md-8 container mt-5">
+                    <h1>Walkers Near Me</h1>
+
+                    <ul class="list-group mt-4">
+                        @foreach (Walker walker in Model.Walkers)
+                        {
+                            <li class="list-group-item disabled" aria-disabled="true">
+                                <img src="@walker.ImageUrl" style="width:50px" />
+                                <span class="font-weight-bold ml-4">@walker.Name</span>
+                                @Html.ActionLink("Request a Walk", "Create", "Walks", null, new { id = @walker.Id })
+                                <a class="btn btn-primary nav-link" asp-route-id="@walker.Id" asp-controller="Walks" asp-action="Create">Request a Walk</a>
+                                <a class="btn btn-secondary btn-sm ml-auto rounded-pill" href="@Url.Action("Create", "Walks", new { id = walker.Id })" role="button">Schedule a Walk</a>
+                            </li>
+
+                        }
+                    </ul>
+                </section>
+</div>
 </div>

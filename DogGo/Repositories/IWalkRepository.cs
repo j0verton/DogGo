@@ -9,6 +9,7 @@ namespace DogGo.Repositories
         void ConfirmWalkRequest(int id);
         Walk GetWalkById(int walkId);
         List<Walk> GetWalksByDogId(int id);
+        List<Walk> GetWalksByOwnerId(int id);
         List<Walk> GetWalksByWalkerId(int id);
         void RequestWalk(Walk walk);
 
