@@ -104,6 +104,39 @@ namespace DogGo.Controllers
             }
         }
 
+        // GET: WalksController/Edit/5
+        public ActionResult Complete(int id)
+        {
+
+            Walk walk = _walkRepo.GetWalkById(id);
+
+            if (walk == null)
+            {
+                return NotFound();
+            }
+
+            return View(walk);
+        }
+
+        // POST: WalksController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Complete(int id, int duration)
+        {
+            try
+            {
+                _walkRepo.CompleteWalk(id, duration);
+
+                return RedirectToAction("Home", "Walkers");
+            }
+            catch
+            {
+                Walk walk = _walkRepo.GetWalkById(id);
+                return View(walk);
+            }
+        }
+
+
         // GET: WalksController/Delete/5
         public ActionResult Delete(int id)
         {

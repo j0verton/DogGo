@@ -65,21 +65,29 @@
                 {
                     if (Summary.walk.WalkStatusId !=1 )
                         { 
-                    <tr>
-                        <td>@Summary.walk.Date</td>
-                        <td>@Summary.walk.Dog.Name</td>
-                        <td>@Summary.walk.Dog.Owner.Name</td>
-                        @if (Summary.walk.WalkStatusId == 2)
-                        {
-                            <td>TBD</td>
-                        }
-                        else
-                        { 
-                            <td><a class="btn btn-secondary" href="@Url.Action("Edit", "Walks", new { id = Summary.walk.Id })">Complete</a></td>
-                        }
-                        <td>@Summary.walk.Date</td>
-                        <td></td>
-                    </tr>
+                <tr>
+                    <td>@Summary.walk.Date</td>
+                    <td>@Summary.walk.Dog.Name</td>
+                    <td>@Summary.walk.Dog.Owner.Name</td>
+                    @if (Summary.walk.WalkStatusId == 2)
+                    {
+                        <td>TBD</td>
+                    }
+                    else 
+                    { 
+                        <td>@Summary.WalkDuration</td>
+                    }
+                    <td>@Summary.walk.Date</td>
+                    @if (Summary.walk.WalkStatusId == 3)
+                    {
+                        <td>Complete</td>
+                    }
+                    else
+                    {
+                        <td><a class="btn btn-secondary" href="@Url.Action("Complete", "Walks", new { id = Summary.walk.Id })">Complete</a></td>
+                    }
+
+                </tr>
                     }
                 }
             </tbody>
