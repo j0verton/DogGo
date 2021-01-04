@@ -127,7 +127,7 @@
                                 <span class="font-weight-bold ml-4">@walker.Name</span>
                                 @Html.ActionLink("Request a Walk", "Create", "Walks", null, new { id = @walker.Id })
                                 <a class="btn btn-primary nav-link" asp-route-id="@walker.Id" asp-controller="Walks" asp-action="Create">Request a Walk</a>
-                                <a class="btn btn-secondary btn-sm ml-auto rounded-pill" href="@Url.Action("Create", "Walks", new { id = walker.Id })" role="button">Schedule a Walk</a>
+                                <a class="btn btn-secondary btn-sm ml-auto rounded-pill" href="@Url.Action("Create", "Walks", new { id = walker.Id })" role="button">Request a Walk</a>
                             </li>
 
                         }
