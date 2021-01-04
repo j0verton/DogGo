@@ -21,6 +21,8 @@ namespace DogGo.Controllers
         public DogsController(IDogRepository dogRepository, IWalkRepository walkRepository)
         {
             _dogRepo = dogRepository;
+            _walkRepo = walkRepository;
+
         }
         // GET: OwnerController
         // /dog/index

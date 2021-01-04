@@ -7,9 +7,47 @@
 <h1>Details</h1>
 
 <div>
-    <h4>DogProfileViewModel</h4>
+    @if (String.IsNullOrEmpty(Model.Dog.ImageUrl))
+    {
+        <img src="https://cdn.pixabay.com/photo/2018/08/15/13/12/dog-3608037_960_720.jpg"
+             class="card-img-top"
+             alt="Doggo" />
+    }
+    else
+    {
+        <img src="@Model.Dog.ImageUrl" class="card-img-top" alt="Doggo" />
+    }
+    <h4>@Model.Dog.Name</h4>
     <hr />
-    <dl class="row">
+    <h5>@Model.Dog.Breed</h5>
+    <p>@Model.Dog.Notes</p>
+    <h4>Past Walks</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Walker
+                </th>
+                <th>
+                    Duration
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Walk walk in Model.Walks)
+            {
+                <tr>
+                    <td>@walk.Date</td>
+                    <td>@walk.WalkerId</td>
+
+                    <td>@(walk.Duration/60)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
     </dl>
 </div>
 <div>
